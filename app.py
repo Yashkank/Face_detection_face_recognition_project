@@ -9,6 +9,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from threading import Thread
 import winsound
 import time  
+import psutil
 
 RTSP_URL = "rtsp://admin:L2E3F7CA@192.168.1.9:554/cam/realmonitor?channel=1&subtype=0"
 DETECTION_SIZE = (320, 320)
@@ -78,7 +79,7 @@ class VideoStream:
         self.stopped = True
         self.stream.release()
 
-def log_recognition(name, detection_time, recognition_time):
+def log_recognition(name, detection_time, recognition_time, detect_timestamp, recog_timestamp, cpu_log):
     now = datetime.now()
     if name in last_logged and now - last_logged[name] < timedelta(minutes=1):
         return
@@ -86,10 +87,11 @@ def log_recognition(name, detection_time, recognition_time):
     last_logged[name] = now
     with open('recognition_log.csv', 'a', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow([name, now.strftime("%Y-%m-%d %H:%M:%S"), f"{detection_time:.2f} ms", f"{recognition_time:.2f} ms"])
+        writer.writerow([name, f"Detection Timestamp: {detect_timestamp}", f"Recognition Timestamp: {recog_timestamp}", 
+                         f"Detection Time: {detection_time:.3f} ms", f"Recognition Time: {recognition_time:.3f} ms", cpu_log])
 
     winsound.Beep(1000, 200)
-    print(f"[LOG] {name} @ {now.strftime('%H:%M:%S')} | Detection Time: {detection_time:.2f} ms | Recognition Time: {recognition_time:.2f} ms")
+    print(f"[LOG] {name} | Detection Timestamp: {detect_timestamp} | Recognition Timestamp: {recog_timestamp} | Detection Time: {detection_time:.3f} ms | Recognition Time: {recognition_time:.3f} ms | {cpu_log}")
 
 def start_camera():
     global running
@@ -110,9 +112,17 @@ def start_camera():
         if frame_count % PROCESS_EVERY_N_FRAMES != 0:
             continue
 
+        cpu_before = psutil.cpu_freq().current / 1000
         detect_start = time.perf_counter()
+        start_freq = psutil.cpu_freq().current / 1000
+
         faces = app.get(frame)
+
+        mid_freq = psutil.cpu_freq().current / 1000
         detect_end = time.perf_counter()
+        end_freq = psutil.cpu_freq().current / 1000
+
+        cpu_log = f"[CPU GHz] Before: {cpu_before:.2f} GHz | During Start: {start_freq:.2f} GHz | Mid: {mid_freq:.2f} GHz | After: {end_freq:.2f} GHz"
 
         recognition_start = time.perf_counter()
         for face in faces:
@@ -132,7 +142,10 @@ def start_camera():
             detection_time = (detect_end - detect_start) * 1000  
             recognition_time = (recognition_end - recognition_start) * 1000  
 
-            log_recognition(name, detection_time, recognition_time)
+            detect_timestamp = datetime.now().strftime("%H:%M:%S.%f")[:-3]
+            recog_timestamp = datetime.now().strftime("%H:%M:%S.%f")[:-3]
+
+            log_recognition(name, detection_time, recognition_time, detect_timestamp, recog_timestamp, cpu_log)
 
             cv2.rectangle(frame, (bbox[0], bbox[1]), (bbox[2], bbox[3]), (0, 255, 0), 2)
             cv2.putText(frame, f"{name} ({conf:.2f})", (bbox[0], bbox[1] - 10),
@@ -174,4 +187,4 @@ def start_gui():
     win.mainloop()
 
 if __name__ == "__main__":
-    start_gui() 
+    start_gui()

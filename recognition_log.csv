@@ -1,16 +1,5 @@
-Unknown,2025-04-15 12:42:53,783.58 ms,1.14 ms
-yash1,2025-04-15 12:45:21,407.82 ms,0.75 ms
-Unknown,2025-04-15 12:45:22,407.82 ms,259.25 ms
-yash,2025-04-15 12:45:29,136.92 ms,0.73 ms
-pratik,2025-04-15 12:45:32,222.20 ms,1.23 ms
-yash1,2025-04-15 13:20:45,227.43 ms,1.28 ms
-Unknown,2025-04-15 13:20:45,227.43 ms,220.55 ms
-yash1,2025-04-15 13:31:19,99.08 ms,0.93 ms
-Unknown,2025-04-15 13:31:21,201.84 ms,1.80 ms
-yash1,2025-04-15 13:48:12,112.25 ms,1.07 ms
-Unknown,2025-04-15 13:48:15,182.85 ms,1.10 ms
-yash1,2025-04-15 14:42:09
-pratik,2025-04-15 14:42:47,250.10 ms,0.97 ms
-Unknown,2025-04-15 14:42:47,250.10 ms,364.31 ms
-pratik3,2025-04-15 14:42:52,203.23 ms,0.71 ms
-yash1,2025-04-15 14:42:54,233.36 ms,0.89 ms
+pratik,Detection Timestamp: 19:23:42.641,Recognition Timestamp: 19:23:42.641,Detection Time: 67.303 ms,Recognition Time: 0.645 ms,[CPU GHz] Before: 1.52 GHz | During Start: 1.52 GHz | Mid: 2.00 GHz | After: 2.00 GHz
+Unknown,Detection Timestamp: 19:42:15.341,Recognition Timestamp: 19:42:15.341,Detection Time: 192.491 ms,Recognition Time: 0.698 ms,[CPU GHz] Before: 2.00 GHz | During Start: 2.00 GHz | Mid: 2.00 GHz | After: 2.00 GHz
+yash1,Detection Timestamp: 19:42:38.671,Recognition Timestamp: 19:42:38.671,Detection Time: 2066.247 ms,Recognition Time: 11.747 ms,[CPU GHz] Before: 2.00 GHz | During Start: 2.00 GHz | Mid: 2.00 GHz | After: 2.00 GHz
+pratik,Detection Timestamp: 19:42:41.017,Recognition Timestamp: 19:42:41.017,Detection Time: 2082.457 ms,Recognition Time: 30.935 ms,[CPU GHz] Before: 2.00 GHz | During Start: 2.00 GHz | Mid: 2.00 GHz | After: 2.00 GHz
+pratik3,Detection Timestamp: 19:42:43.295,Recognition Timestamp: 19:42:43.295,Detection Time: 2002.939 ms,Recognition Time: 11.121 ms,[CPU GHz] Before: 1.52 GHz | During Start: 1.52 GHz | Mid: 2.00 GHz | After: 2.00 GHz
